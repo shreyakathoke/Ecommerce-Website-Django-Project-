@@ -1,0 +1,325 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us - My Shop</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding-top: 70px;
+      background-color: #f8f9fa;
+    }
+
+    /* Navbar */
+    .navbar {
+      background: #ffffff;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    }
+    .navbar .nav-link {
+      font-weight: 500;
+      color: #333 !important;
+      transition: all 0.3s ease;
+      margin-left: 15px;
+    }
+    .navbar .nav-link:hover {
+      color: #0d6efd !important;
+    }
+    .navbar .nav-link.active {
+      color: #0d6efd !important;
+      border-bottom: 2px solid #0d6efd;
+      padding-bottom: 5px;
+    }
+    .navbar-brand {
+      font-size: 1.4rem;
+      letter-spacing: 0.5px;
+    }
+    .auth-links .btn {
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    /* Section Headings */
+    section h2, section h3 {
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: #212529;
+    }
+
+    .about-text p {
+      color: #6c757d;
+      line-height: 1.8;
+    }
+
+    /* Images */
+    .img-fluid {
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+      transition: transform 0.3s ease;
+    }
+    .img-fluid:hover {
+      transform: scale(1.03);
+    }
+
+    /* Cards */
+    .collection-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .collection-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+    }
+    .collection-card img {
+      max-height: 220px;
+      width: 100%;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 15px;
+    }
+    .collection-card h4 {
+      font-weight: 600;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    /* Buttons */
+    .btn-shop {
+      background: linear-gradient(45deg, #0d6efd, #0b5ed7);
+      color: #fff;
+      font-weight: 600;
+      padding: 10px 30px;
+      border-radius: 50px;
+      transition: all 0.3s ease-in-out;
+      text-transform: uppercase;
+    }
+    .btn-shop:hover {
+      background: linear-gradient(45deg, #0b5ed7, #0948a8);
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(13,110,253,0.4);
+    }
+
+    /* Section Backgrounds */
+    .highlight-section {
+      background: #ffffff;
+      border-radius: 15px;
+      padding: 40px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+    }
+
+   @media (max-width: 767px) { .product-card img { height: 180px; } }
+
+    footer { background-color: #064e59; color: #fff; padding: 50px 0 20px 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    footer h5 { color: #FF6F61; font-weight: 600; margin-bottom: 15px; }
+    footer a { color: #ccc; text-decoration: none; transition: color 0.3s; }
+    footer a:hover { color: #FF6F61; text-decoration: none; }
+    footer .btn-warning { background-color: #FF6F61; border: none; transition: all 0.3s ease; }
+    footer .btn-warning:hover { background-color: #e0554f; transform: translateY(-2px); }
+    footer input:focus { outline: none; box-shadow: 0 0 8px rgba(255, 111, 97, 0.3); border: 1px solid #FF6F61; }
+    footer hr { border-top: 1px solid #555; }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top">
+  <div class="container">
+    <a class="navbar-brand fw-bold fs-2" href="{% url 'users:base' %}" style="color: #FF6F61;">
+      <i class="bi bi-shop me-1"></i> My Shop
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto align-items-center">
+        
+        <li class="nav-item">
+          <a class="nav-link {% if request.resolver_match.url_name == 'base' %}active{% endif %}" href="{% url 'users:base' %}">
+            <i class="bi bi-house-door me-1"></i> Home
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link {% if request.resolver_match.url_name == 'about' %}active{% endif %}" href="{% url 'users:wishlist' %}">
+            <i class="bi bi-info-circle me-1"></i> About
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link {% if request.resolver_match.url_name == 'contact' %}active{% endif %}" href="{% url 'users:contact' %}">
+            <i class="bi bi-envelope me-1"></i> Contact
+          </a>
+        </li>
+
+        <li class="nav-item position-relative">
+          <a class="nav-link {% if request.resolver_match.url_name == 'view_cart' %}active{% endif %}" href="{% url 'users:login' %}" aria-label="Cart">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">3</span>
+          </a>
+        </li>
+
+        <li class="nav-item auth-links d-flex align-items-center ms-lg-3">
+          <a href="{% url 'users:login' %}" class="btn btn-outline-primary btn-sm me-2">
+            <i class="bi bi-box-arrow-in-right me-1"></i> Login
+          </a>
+          <a href="{% url 'users:register' %}" class="btn btn-primary btn-sm">
+            <i class="bi bi-person-plus me-1"></i> Register
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- About Us -->
+<section class="container py-5">
+  <div class="row align-items-center highlight-section">
+    <div class="col-lg-6">
+      <img src="{% static 'users/images/video-image.jpg' %}" alt="About Us" class="img-fluid">
+    </div>
+    <div class="col-lg-6 about-text ps-lg-5 mt-4 mt-lg-0">
+      <h2>About Us</h2>
+      <p>
+        Welcome to our online store, where style meets convenience and quality is always our promise. 
+        We are passionate about bringing you the latest trends, timeless classics, and everyday essentials—all carefully curated to match your lifestyle. 
+      </p>
+      <p>
+        With secure shopping, fast delivery, and dedicated customer support, we make your online shopping experience simple, enjoyable, and trustworthy.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- How it Started -->
+<section class="container py-5">
+  <div class="row align-items-center highlight-section">
+    <div class="col-lg-6 mb-4 mb-lg-0">
+      <img src="{% static 'users/images/single-image1.jpg' %}" alt="How We Started" class="img-fluid">
+    </div>
+    <div class="col-lg-6 ps-lg-5">
+      <h2 class="fw-bold mb-3">How Was Ultras Store Started?</h2>
+      <p class="text-muted mb-3">
+        Ultras Store was founded with a simple mission — to redefine streetwear and active fashion. 
+        What started as a small idea quickly grew into a movement for those who believe in confidence, comfort, and individuality.
+      </p>
+      <p class="text-muted mb-4">
+        Our journey began with a passion for minimal yet bold designs that connect with modern lifestyle. 
+        Every collection is crafted with attention to quality, sustainability, and authenticity.
+      </p>
+      <a href="{% url 'users:login' %}" class="btn btn-shop">
+        Shop Our Store <i class="bi bi-arrow-right ms-2"></i>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- New Collections -->
+<section class="container py-5">
+  <h2 class="text-center mb-5">New Collections</h2>
+  <div class="row g-4">
+    <div class="col-md-4">
+      <div class="collection-card text-center">
+        <img src="{% static 'users/images/banner-image-5.jpg' %}" alt="Collection 1">
+        <h4>Soft Leather Jackets</h4>
+        <p>Discover clothing that blends comfort, quality, and style—designed to make you look and feel your best every day.</p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="collection-card text-center">
+        <img src="{% static 'users/images/banner-image-2.jpg' %}" alt="Collection 2">
+        <h4>Trendy Sneakers</h4>
+        <p>From timeless classics to the latest trends, our footwear is crafted for durability and unmatched style.</p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="collection-card text-center">
+        <img src="{% static 'users/images/banner-image-6.jpg' %}" alt="Collection 3">
+        <h4>Winter Essentials</h4>
+        <p>Stay cozy and stylish with premium jackets, hoodies, and accessories designed for all-day comfort.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Featured Collection -->
+<section class="container py-5">
+  <div class="row align-items-center highlight-section">
+    <div class="col-lg-6 mb-4">
+      <img src="{% static 'users/images/single-image-2.jpg' %}" alt="Winter Collection" class="img-fluid">
+    </div>
+    <div class="col-lg-6 ps-lg-5">
+      <h3>Classic Winter Collection</h3>
+      <p>
+        Dignissim lacus, turpis ut suspendisse vel tellus. Turpis purus, gravida orci, fringilla a. 
+        Ac sed eu fringilla odio mi. Consequat pharetra at magna imperdiet cursus ac faucibus sit libero. 
+        Ultricies quam nunc, lorem sit lorem urna, pretium aliquam ut.
+      </p>
+      <a href="{% url 'users:login' %}" class="btn btn-shop">Shop Now</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4 col-md-6 mb-4">
+        <h5>My Shop</h5>
+        <p>One-stop shop for amazing products. Fast shipping and excellent support.</p>
+        <div class="d-flex gap-3 mt-3">
+          <a href="#"><i class="bi bi-facebook fs-5"></i></a>
+          <a href="#"><i class="bi bi-twitter fs-5"></i></a>
+          <a href="#"><i class="bi bi-instagram fs-5"></i></a>
+          <a href="#"><i class="bi bi-linkedin fs-5"></i></a>
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-6 mb-4">
+        <h5>Quick Links</h5>
+        <ul class="list-unstyled">
+          <li><a href="{% url 'users:base' %}">Home</a></li>
+          <li><a href="{% url 'users:shop' %}">Shop</a></li>
+          <li><a href="{% url 'users:contact' %}">Contact</a></li>
+          <li><a href="{% url 'users:about' %}">About Us</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-3 col-md-6 mb-4">
+        <h5>Customer Service</h5>
+        <ul class="list-unstyled">
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Shipping & Delivery</a></li>
+          <li><a href="#">Returns & Exchanges</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-3 col-md-6 mb-4">
+        <h5>Newsletter</h5>
+        <p>Subscribe for latest updates and offers.</p>
+        <form class="d-flex flex-column gap-2">
+          <input type="email" class="form-control rounded-pill" placeholder="Your Email">
+          <button type="submit" class="btn btn-warning rounded-pill">Subscribe</button>
+        </form>
+        
+      </div>
+    </div>
+    <hr class="bg-secondary">
+    <div class="text-center pt-3">
+      <p class="mb-0">&copy; 2025 My Shop. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

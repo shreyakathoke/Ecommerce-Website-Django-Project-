@@ -1,0 +1,190 @@
+{% load static %}
+{% load widget_tweaks %}
+{% block content %}
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light shadow-sm px-4 py-3 sticky-top" style="background-color: white;">
+  <div class="container-fluid">
+    <a class="navbar-brand fw-bold fs-2 d-flex align-items-center" href="{% url 'users:base' %}">
+      <span style="color: #FF6F61;">My Shop</span>
+    </a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
+      <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link text-dark px-3" href="{% url 'users:base' %}">Home</a></li>
+        <li class="nav-item"><a class="nav-link text-dark px-3" href="{% url 'users:about' %}">About</a></li>
+        <li class="nav-item"><a class="nav-link text-dark px-3" href="{% url 'users:contact' %}">Contact</a></li>
+      </ul>
+
+      <div class="d-flex align-items-center gap-2">
+        <a href="{% url 'users:login' %}" class="btn btn-outline-primary fw-bold">Login</a>
+        <a href="{% url 'users:register' %}" class="btn btn-primary fw-bold">Register</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Add Product Form -->
+<style>
+/* Card & Background */
+.add-product-card {
+    border-radius: 20px;
+    background: linear-gradient(135deg, #FFDEE9, #B5FFFC);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.25);
+    padding: 30px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.add-product-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Form labels & inputs */
+.add-product-card .form-label {
+    font-weight: 500;
+    color: #FF6F61;
+}
+.add-product-card .form-control {
+    border-radius: 12px;
+    padding: 12px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.add-product-card .form-control:focus {
+    border-color: #FF6F61;
+    box-shadow: 0 0 8px rgba(255,111,97,0.4);
+}
+
+/* Buttons */
+.btn-add-product {
+    background-color: #FF6F61;
+    color: white;
+    border-radius: 12px;
+    font-weight: bold;
+    padding: 12px;
+    width: 100%;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+.btn-add-product:hover {
+    background-color: #E65C50;
+    transform: scale(1.02);
+}
+
+/* Checkbox */
+.form-check-label {
+    font-weight: 500;
+}
+
+/* Responsive adjustments */
+@media (max-width: 767px) {
+    .add-product-card {
+        padding: 20px;
+    }
+    .btn-add-product {
+        padding: 10px;
+    }
+}
+</style>
+
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8">
+            <div class="add-product-card">
+                <h3 class="text-center mb-4" style="font-family: 'Lobster Two', cursive; color: #FF6F61;">Add New Product</h3>
+                
+                <!-- Display Django messages -->
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+                <form method="POST" enctype="multipart/form-data" autocomplete="off">
+                    {% csrf_token %}
+                    
+                    <div class="mb-3">
+                        <label for="id_name" class="form-label">Product Name</label>
+                        {{ form.name|add_class:"form-control" }}
+                        {{ form.name.errors }}
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="id_description" class="form-label">Description</label>
+                        {{ form.description|add_class:"form-control" }}
+                        {{ form.description.errors }}
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="id_price" class="form-label">Price</label>
+                        {{ form.price|add_class:"form-control" }}
+                        {{ form.price.errors }}
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="id_category" class="form-label">Category</label>
+                        {{ form.category|add_class:"form-control" }}
+                        {{ form.category.errors }}
+                    </div>
+                   <div class="mb-3">
+                       <label for="id_image" class="form-label">Product Image</label>
+                       {{ form.image|add_class:"form-control" }}
+                   
+                       <!-- Preview uploaded image -->
+                       {% if form.instance.image %}
+                           <img id="preview" class="img-fluid mt-2" 
+                                style="max-height:150px; display:block;"
+                                src="{{ form.instance.image.url }}" />
+                       {% else %}
+                           <img id="preview" class="img-fluid mt-2" 
+                                style="max-height:150px; display:none;" />
+                       {% endif %}
+                   
+                       {{ form.image.errors }}
+                   </div>
+
+
+
+
+
+                    <div class="form-check mb-3">
+                        {{ form.is_featured|add_class:"form-check-input" }}
+                        <label class="form-check-label" for="id_is_featured">Featured Product</label>
+                        {{ form.is_featured.errors }}
+                    </div>
+
+                    <button type="submit" class="btn-add-product">Add Product</button>
+                </form>
+
+                <p class="text-center mt-3">
+                    <a href="{% url 'users:seller_dashboard' %}" style="color: #FF6F61; font-weight: 500;">Back to Dashboard</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Real-time image preview -->
+<script>
+const imageInput = document.getElementById('id_image');
+const preview = document.getElementById('preview');
+
+if (imageInput) {
+    imageInput.addEventListener('change', function() {
+        const [file] = imageInput.files;
+        if(file) {
+            preview.src = URL.createObjectURL(file);
+            preview.style.display = 'block';
+        } else {
+            preview.style.display = 'none';
+        }
+    });
+}
+
+</script>
+
+{% endblock %}

@@ -1,0 +1,387 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fashion E-commerce</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Lobster+Two:wght@700&display=swap" rel="stylesheet">
+
+  <style>
+    /* General */
+    body { font-family: 'Lobster Two', cursive; background: #f8f9fa; margin-top: 70px; }
+    a { text-decoration: none; }
+    h1, h2, h3, h4, h5, h6 { font-weight: 700; }
+
+    /* Navbar */
+    .navbar-brand { font-size: 1.8rem; color: #ff4c29; font-weight: bold; }
+    .navbar-nav .nav-link { font-weight: 500; transition: 0.3s; }
+    .navbar-nav .nav-link:hover { color: #e03e1c; }
+    .auth-links a { margin-left: 15px; color: #ff4c29; transition: 0.3s; }
+    .auth-links a:hover { color: #e03e1c; }
+
+    /* Hero Section */
+    .hero-section {
+      height: 90vh;
+      background-image: url("{% static 'users/images/banner1.jpg' %}");
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      display: flex;
+      align-items: center;
+      color: #fff;
+      text-align: left;
+      padding: 0 50px;
+    }
+    .hero-section::before {
+      content: "";
+      position: absolute;
+      top:0; left:0;
+      width:100%; height:100%;
+      background: rgba(47, 47, 47, 0.4);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 600px;
+    }
+    .hero-content h1 { font-size: 3rem; text-shadow: 2px 2px 5px rgba(0,0,0,0.6); }
+    .hero-content p { font-size: 1.2rem; text-shadow: 1px 1px 3px rgba(0,0,0,0.5); margin-top: 15px; }
+    .btn-custom { background: #ff4c29; color: #fff; border-radius: 30px; padding: 12px 25px; transition: 0.3s; margin-top: 20px; display: inline-block; }
+    .btn-custom:hover { background: #e03e1c; transform: scale(1.05); }
+
+    /* Products */
+    .product-card { background: #fff; border-radius: 15px; transition: transform 0.3s, box-shadow 0.3s; }
+    .product-card:hover { transform: translateY(-10px); box-shadow: 0 8px 25px rgba(0,0,0,0.2); }
+    .product-card img { border-radius: 15px 15px 0 0; height: 250px; object-fit: cover; }
+    .product-title { font-weight: 600; color: #ff4c29; }
+    .product-price { font-weight: bold; color: #e03e1c; }
+    .btn-cart { background: #ff4c29; color: #fff; border-radius: 10px; transition: 0.3s; }
+    .btn-cart:hover { background: #e03e1c; }
+
+    /* Footer */
+    footer { background: #343a40; color: #fff; padding: 50px 0; }
+    footer a { color: #ccc; transition: 0.3s; }
+    footer a:hover { color: #ff4c29; }
+    .footer-input { border-radius: 50px; padding: 10px 20px; border: none; width: 300px; max-width: 80%; }
+    .footer-btn { border-radius: 50px; padding: 10px 25px; background: #ff4c29; color: #fff; border: none; transition: 0.3s; }
+    .footer-btn:hover { background: #e03e1c; }
+
+    /* Responsive */
+    @media(max-width:768px) { 
+      .hero-content h1 { font-size: 2rem; }
+      .product-card img { height: 200px; }
+      .footer-input { width: 100%; margin-bottom: 10px; }
+      .hero-section { padding: 0 20px; text-align: center; }
+      .hero-content { max-width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="#">My Shop</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto align-items-center">
+        <li class="nav-item"><a class="nav-link" href="{% url 'users:base' %}">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'users:about' %}">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'users:contact' %}">Contact</a></li>
+        <li class="nav-item position-relative">
+          <a class="nav-link" href="#" aria-label="Cart">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">3</span>
+          </a>
+        </li>
+        <li class="nav-item auth-links d-flex align-items-center">
+          <a href="{% url 'users:login' %}">Login</a>
+          <a href="{% url 'users:register' %}">Register</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero-section">
+  <div class="hero-content">
+    <h1>Summer Collection 2025</h1>
+    <p>Discover the latest trends in fashion with our exclusive summer collection.</p>
+    <p>Upgrade your wardrobe with handpicked styles, perfect for every occasion.</p>
+    <a href="{% url 'users:login' %}" class="btn btn-custom">Shop Now</a>
+  </div>
+</section>
+
+<!-- Products Section -->
+<section id="shop" class="container py-5">
+  <!-- Section Header -->
+  <div class="text-center mb-5">
+    <h2 style="background: linear-gradient(90deg, #ff4c29, #e03e1c); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 700; animation: fadeInDown 1s ease forwards;">
+      Featured Products
+    </h2>
+    <p style="font-size:1.1rem; color:#777; animation: fadeIn 1.2s ease forwards;">
+      Hand-picked styles for your wardrobe
+    </p>
+  </div>
+
+  <!-- Informative Paragraphs -->
+  <div class="mb-4 text-center">
+    <p style="font-size:1.1rem; color:#555; font-weight:500; opacity:0; transform:translateY(20px); animation: fadeInUp 1s ease forwards; animation-delay:0.3s;">
+      Discover our exclusive collection of <span style="color:#ff4c29; font-weight:600;">fashion-forward products</span> curated to keep you stylish and comfortable all year round. Each piece is selected with care to ensure premium quality and modern trends.
+    </p>
+    <p style="font-size:1.1rem; color:#555; font-weight:500; opacity:0; transform:translateY(20px); animation: fadeInUp 1s ease forwards; animation-delay:0.5s;">
+      From casual essentials to statement pieces, our range offers <span style="color:#ff4c29; font-weight:600;">something for everyone</span>. Whether you're refreshing your wardrobe or hunting for the perfect gift, our products combine style, durability, and affordability.
+    </p>
+    <p style="font-size:1.1rem; color:#555; font-weight:500; opacity:0; transform:translateY(20px); animation: fadeInUp 1s ease forwards; animation-delay:0.7s;">
+      Shop confidently with <span style="color:#ff4c29; font-weight:600;">fast shipping</span>, easy returns, and dedicated customer support. Explore our featured products and find your next favorite outfit today!
+    </p>
+  </div>
+
+  <!-- Products Grid -->
+  <div class="row g-4">
+    {% for product in products %}
+    <div class="col-md-4">
+      <div class="card product-card" style="transition: transform 0.4s, box-shadow 0.4s;" onmouseover="this.style.transform='translateY(-15px) scale(1.02)'; this.style.boxShadow='0 12px 30px rgba(0,0,0,0.25)';" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 8px 25px rgba(0,0,0,0.2)';">
+        <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}" style="border-radius:15px 15px 0 0; height:250px; object-fit:cover;">
+        <div class="card-body text-center">
+          <h5 class="product-title" style="font-weight:600; color:#ff4c29;">{{ product.name }}</h5>
+          <p class="product-price" style="font-weight:bold; color:#e03e1c;">${{ product.price }}</p>
+          <a href="{% url 'users:add_to_cart' product.id %}" class="btn btn-cart btn-sm" style="background:#ff4c29; color:#fff; border-radius:10px; transition:0.3s;" onmouseover="this.style.background='#e03e1c';" onmouseout="this.style.background='#ff4c29';">Add to Cart</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <!-- Inline Keyframes for animations -->
+  <style>
+    @keyframes fadeInDown {
+      0% { opacity: 0; transform: translateY(-20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+  </style>
+</section>
+
+
+<section class="container py-5">
+  <h2 class="text-center mb-5" style="font-weight:700; font-size:2.5rem; color:#ff4c29; text-transform:uppercase;">New Collections</h2>
+  
+  <div class="row g-4">
+  
+    <!-- Collection 1 -->
+    <div class="col-lg-4 col-md-6 col-sm-12">
+      <div class="collection-card text-center" 
+           style="background:#fff; border-radius:15px; box-shadow:0 8px 25px rgba(0,0,0,0.1); padding:20px; transition:0.3s; cursor:pointer;"
+           onmouseover="this.style.transform='translateY(-10px)'; this.style.boxShadow='0 12px 35px rgba(0,0,0,0.2)';"
+           onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 25px rgba(0,0,0,0.1)';">
+        <img src="{% static 'users/images/banner-image-5.jpg' %}" 
+             alt="Collection 1" 
+             style="width:100%; height:250px; object-fit:cover; border-radius:10px 10px 0 0;">
+        <h4 style="margin-top:15px; font-weight:700; color:#ff4c29;">Soft Leather Jackets</h4>
+        <p style="color:#555; font-size:0.95rem; line-height:1.5; margin-top:10px;">
+          Discover clothing that blends comfort, quality, and style—designed to make you look and feel your best every day.
+        </p>
+      </div>
+    </div>
+    
+    <!-- Collection 2 -->
+    <div class="col-lg-4 col-md-6 col-sm-12">
+      <div class="collection-card text-center" 
+           style="background:#fff; border-radius:15px; box-shadow:0 8px 25px rgba(0,0,0,0.1); padding:20px; transition:0.3s; cursor:pointer;"
+           onmouseover="this.style.transform='translateY(-10px)'; this.style.boxShadow='0 12px 35px rgba(0,0,0,0.2)';"
+           onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 25px rgba(0,0,0,0.1)';">
+        <img src="{% static 'users/images/banner-image-2.jpg' %}" 
+             alt="Collection 2" 
+             style="width:100%; height:250px; object-fit:cover; border-radius:10px 10px 0 0;">
+        <h4 style="margin-top:15px; font-weight:700; color:#ff4c29;">Trendy Sneakers</h4>
+        <p style="color:#555; font-size:0.95rem; line-height:1.5; margin-top:10px;">
+          From timeless classics to the latest trends, our footwear is crafted for durability and unmatched style.
+        </p>
+      </div>
+    </div>
+    
+    <!-- Collection 3 -->
+    <div class="col-lg-4 col-md-6 col-sm-12">
+      <div class="collection-card text-center" 
+           style="background:#fff; border-radius:15px; box-shadow:0 8px 25px rgba(0,0,0,0.1); padding:20px; transition:0.3s; cursor:pointer;"
+           onmouseover="this.style.transform='translateY(-10px)'; this.style.boxShadow='0 12px 35px rgba(0,0,0,0.2)';"
+           onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 25px rgba(0,0,0,0.1)';">
+        <img src="{% static 'users/images/banner-image-6.jpg' %}" 
+             alt="Collection 3" 
+             style="width:100%; height:250px; object-fit:cover; border-radius:10px 10px 0 0;">
+        <h4 style="margin-top:15px; font-weight:700; color:#ff4c29;">Winter Essentials</h4>
+        <p style="color:#555; font-size:0.95rem; line-height:1.5; margin-top:10px;">
+          Stay cozy and stylish with premium jackets, hoodies, and accessories designed for all-day comfort.
+        </p>
+      </div>
+    </div>
+    
+  </div>
+</section>
+
+
+
+
+<!-- Collections Section -->
+<section class="container py-5">
+  <div class="row g-4 align-items-stretch">
+    <div class="col-lg-6 col-md-12">
+      <div class="card h-100 shadow-sm overflow-hidden">
+        <img src="{% static 'users/images/collection-item1.jpg' %}" class="card-img-top" alt="Street Wear">
+        <div class="card-body">
+          <p class="text-muted mb-1">CASUAL COLLECTION</p>
+          <h2 class="card-title">Street <strong>Wear</strong></h2>
+          <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dignissim massa diam elementum.</p>
+          <a href="{% url 'users:login' %}" class="text-decoration-none fw-bold text-primary">Shop Collection →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-3 col-md-6">
+  <div class="card h-100 shadow-sm text-center" 
+       style="transition: transform 0.4s, box-shadow 0.4s, background 0.4s; border-radius:15px; overflow:hidden; cursor:pointer; background:#fff;"
+       onmouseover="this.style.transform='translateY(-12px) scale(1.03)'; this.style.boxShadow='0 15px 35px rgba(0,0,0,0.25)'; this.style.background='linear-gradient(145deg, #ffe6e0, #fff5f2)';" 
+       onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 8px 15px rgba(0,0,0,0.15)'; this.style.background='#fff';">
+    <img src="{% static 'users/images/collection-item2.jpg' %}" 
+         class="card-img-top" 
+         alt="Basic Shoes" 
+         style="height:250px; object-fit:cover; border-bottom: 3px solid #ff4c29;">
+    <div class="card-body">
+      <p style="color:#999; font-weight:500; margin-bottom:5px;">BASIC COLLECTION</p>
+      <h5 style="color:#ff4c29; font-weight:700; margin-bottom:10px;">Basic <strong>Shoes</strong></h5>
+      <p style="font-size:0.95rem; color:#555; margin-bottom:15px; line-height:1.4;">
+        Comfortable and stylish everyday shoes that go perfectly with casual or office wear. Durable, lightweight, and easy to pair with any outfit.
+      </p>
+      <a href="#" 
+         style="color:#fff; background:#ff4c29; padding:8px 20px; border-radius:25px; font-weight:600; transition:0.3s; display:inline-block;" 
+         onmouseover="this.style.background='#e03e1c'; this.style.transform='scale(1.05)';" 
+         onmouseout="this.style.background='#ff4c29'; this.style.transform='scale(1)';">
+        Shop Collection →
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="col-lg-3 col-md-6">
+  <div class="card h-100 shadow-sm text-center" 
+       style="transition: transform 0.4s, box-shadow 0.4s, background 0.4s; border-radius:15px; overflow:hidden; cursor:pointer; background:#fff;"
+       onmouseover="this.style.transform='translateY(-12px) scale(1.03)'; this.style.boxShadow='0 15px 35px rgba(0,0,0,0.25)'; this.style.background='linear-gradient(145deg, #e0f7ff, #f2fbff)';" 
+       onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 8px 15px rgba(0,0,0,0.15)'; this.style.background='#fff';">
+    <img src="{% static 'users/images/collection-item3.jpg' %}" 
+         class="card-img-top" 
+         alt="Woolen Hat" 
+         style="height:250px; object-fit:cover; border-bottom: 3px solid #1ca3ec;">
+    <div class="card-body">
+      <p style="color:#999; font-weight:500; margin-bottom:5px;">BEST SELLING PRODUCT</p>
+      <h5 style="color:#1ca3ec; font-weight:700; margin-bottom:10px;">Woolen <strong>Hat</strong></h5>
+      <p style="font-size:0.95rem; color:#555; margin-bottom:15px; line-height:1.4;">
+        Keep warm and stylish with our premium woolen hats. Perfect for winter fashion and outdoor activities, offering comfort and high-quality craftsmanship.
+      </p>
+      <a href="{% url 'users:login' %}" 
+         style="color:#fff; background:#1ca3ec; padding:8px 20px; border-radius:25px; font-weight:600; transition:0.3s; display:inline-block;" 
+         onmouseover="this.style.background='#0f82c4'; this.style.transform='scale(1.05)';" 
+         onmouseout="this.style.background='#1ca3ec'; this.style.transform='scale(1)';">
+        Shop Collection →
+      </a>
+    </div>
+  </div>
+</div>
+
+</section>
+
+<!-- Info Sections -->
+<section class="container-fluid" style="background:#ffffff; padding:60px 15px;">
+  <div class="row align-items-center">
+    <div class="col-md-6 text-center text-md-start">
+      <h2 style="font-size:2.5rem; font-weight:700; color:#ff4c29; margin-bottom:20px;">Grow your business with Better Customer Service</h2>
+      <p style="font-size:1.1rem; color:#555; line-height:1.6;">
+        We help you streamline support and improve customer experience using modern tools. Our solutions are designed to reduce response time, increase customer satisfaction, and boost loyalty.
+      </p>
+      <a href="{% url 'users:login' %}" style="display:inline-block; margin-top:20px; padding:12px 25px; font-size:1rem; font-weight:600; color:#fff; background:#ff4c29; border-radius:30px; text-decoration:none; transition:0.3s;"
+         onmouseover="this.style.background='#e03e1c'; this.style.transform='scale(1.05)';"
+         onmouseout="this.style.background='#ff4c29'; this.style.transform='scale(1)';">
+        Get Started
+      </a>
+    </div>
+    <div class="col-md-6 text-center mt-4 mt-md-0">
+      <img src="{% static 'users/images/post-img3.jpg' %}" alt="Customer Service" style="max-width:100%; height:auto; border-radius:15px; box-shadow:0 8px 25px rgba(0,0,0,0.1); transition:0.3s;" 
+           onmouseover="this.style.transform='scale(1.03)'; this.style.boxShadow='0 12px 35px rgba(0,0,0,0.2)';" 
+           onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 8px 25px rgba(0,0,0,0.1)';">
+    </div>
+  </div>
+</section>
+
+<section class="container-fluid" style="background:#f8f9fa; padding:60px 15px;">
+  <div class="row align-items-center flex-column-reverse flex-md-row">
+    <div class="col-md-6 text-center mt-4 mt-md-0">
+      <img src="{% static 'users/images/model.jpg' %}" alt="Team Collaboration" style="max-width:100%; height:auto; border-radius:15px; box-shadow:0 8px 25px rgba(0,0,0,0.1); transition:0.3s;"
+           onmouseover="this.style.transform='scale(1.03)'; this.style.boxShadow='0 12px 35px rgba(0,0,0,0.2)';"
+           onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 8px 25px rgba(0,0,0,0.1)';">
+    </div>
+    <div class="col-md-6 text-center text-md-start">
+      <h2 style="font-size:2.5rem; font-weight:700; color:#1ca3ec; margin-bottom:20px;">Collaborate with Your Team Anywhere</h2>
+      <p style="font-size:1.1rem; color:#555; line-height:1.6;">
+        Empower your team with tools to collaborate from any location on any device. Share files, communicate seamlessly, and stay productive wherever you are.
+      </p>
+      <a href="{% url 'users:login' %}" style="display:inline-block; margin-top:20px; padding:12px 25px; font-size:1rem; font-weight:600; color:#1ca3ec; background:#fff; border:2px solid #1ca3ec; border-radius:30px; text-decoration:none; transition:0.3s;"
+         onmouseover="this.style.background='#1ca3ec'; this.style.color='#fff'; this.style.transform='scale(1.05)';"
+         onmouseout="this.style.background='#fff'; this.style.color='#1ca3ec'; this.style.transform='scale(1)';">
+        Learn More
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- Footer -->
+<footer>
+  <div class="container text-center">
+    <p>Subscribe for latest offers:</p>
+    <form class="d-flex justify-content-center flex-column flex-md-row align-items-center mb-3">
+      <input type="email" class="footer-input" placeholder="Enter your email">
+      <button type="submit" class="footer-btn mt-2 mt-md-0 ms-md-2">Subscribe</button>
+    </form>
+    <p>Follow us:
+      <a href="#"><i class="fab fa-facebook mx-2"></i></a>
+      <a href="#"><i class="fab fa-instagram mx-2"></i></a>
+      <a href="#"><i class="fab fa-twitter mx-2"></i></a>
+    </p>
+    <p class="mt-3">&copy; 2025 Ultras Store. All rights reserved.</p>
+  </div>
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Smooth Scroll -->
+<script>
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
+      document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+</script>
+
+</body>
+</html>
