@@ -34,7 +34,7 @@ Database: MySQL
 Version Control: Git & GitHub
 
 ---
-🖼️ Screenshots
+🖼️ screenshots
 🏠 home.png
 🔐about.png
 
